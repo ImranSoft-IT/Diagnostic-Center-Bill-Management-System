@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Diagnostic_Center_Bill_Management_System.ViewModel.TestTypeReportViewModel>
+<table class="table table-striped table-bordered" id="TestType">
+    <caption>Type Wise Report</caption>
+    <thead>
+        <tr>
+            <td>SL</td>
+            <th>Test Type Name</th>
+            <th>Total No. Of Test</th>
+            <th>Total Amount</th>
+            @*<th>Action</th>*@
+    </thead>
+    @{int i = 1;
+        <tbody>
+
+            @foreach (var data in Model)
+            {
+
+                <tr>
+                    <td>@i</td>
+                    <td>@data.TestType_Name</td>
+                    <td>@data.totalTestType</td>
+                    <td>@data.TotalTypeAmount</td>
+                    @*<td>
+                            <a class="btn btn-success" title="Edit/Update" onclick="EditProject(@data.Id,'@data.projectName','@data.projectShortName','@data.projectLocation','@data.inChargeEmpCode','','','@data.projectStatus','@data.specialBranchUnitId','@data.isdefault','@data.startDate?.ToString("dd-MMM-yyyy")','@data.endDate?.ToString("dd-MMM-yyyy")')" href="javascript:void(0)"><i class='fa fa-edit'></i></a>&nbsp;&nbsp;
+                            <a class="btn btn-danger" title="Delete" href="javascript:void(0)" onclick="DeleteMaster(@data.Id)"><i class="fa fa-trash-alt"></i></a>
+                        </td>*@
+                </tr>
+
+                i++;
+
+            }
+
+        </tbody>
+    }
+</table>

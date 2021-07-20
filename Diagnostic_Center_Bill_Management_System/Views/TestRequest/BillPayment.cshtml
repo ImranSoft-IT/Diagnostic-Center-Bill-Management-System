@@ -1,0 +1,138 @@
+﻿@model Diagnostic_Center_Bill_Management_System.ViewModel.BillPayment
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header  d-flex flex-row align-items-center justify-content-between">
+        <h5 class="m-0 font-weight-bold text-primary">Search Bill</h5>
+    </div>
+
+    <div class="card-body p-3 m-0" style="padding-bottom:0px;">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-6">
+                    <div class="form-group row">
+                        <label for="TestType_Name" class="col-sm-4 col-form-label">Bill No:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="Bill_Number" name="Bill_Number" />
+                        </div>
+                    </div>
+                    <h5 class="align-content-center">OR</h5>
+                    <div class="form-group row">
+                        <label for="Slno" class="col-sm-4 col-form-label">Mobile No:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="MobileNo" name="MobileNo" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-5"></div>
+                <div class="col-md-2">
+                    <button type="button" onclick="GetPatientBill()" id="SearchBtn" class="btn btn-success btn-sm" style="float:left; margin-top:5px;">Search</button>
+                </div>
+                <div class="col-md-5"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header  d-flex flex-row align-items-center justify-content-between">
+        <h5 class="m-0 font-weight-bold text-primary">Payment</h5>
+    </div>
+
+    <div class="card-body p-3 m-0" style="padding-bottom:0px;">
+        <div class="container">
+            <form asp-action="BillPayment" id="FormId" method="post">
+
+                <div class="row">
+                    <input type="hidden" id="Id" name="Id" value="" />
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="TestType_Name" class="col-sm-4 col-form-label">Patient Name:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="PatientName" name="PatientName" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="TestType_Name" class="col-sm-4 col-form-label">Amount:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="PayAmount" name="PayAmount" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Slno" class="col-sm-4 col-form-label">Due Date:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="DueDate" name="DueDate" value="@DateTime.Now.ToString("dd-MMM-yyyy")" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2">
+                        <button type="submit" id="submit" class="btn btn-success btn-lg" style="float:left; margin-top:5px;">Pay</button>
+                    </div>
+                    <div class="col-md-5"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/js/site.js"></script>
+<script>
+
+    $(function () {
+        $("#DueDate").datepicker({
+            dateFormat: "d MM yy",
+            showAnim: "scale",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1900:2100"
+        });
+    });
+
+    function GetPatientBill() {
+
+        var billNo = $('#Bill_Number').val();
+        var mblNo = $('#MobileNo').val();
+
+        $.ajax({
+            async: true,
+            data: { BillNo: billNo, MblNo: mblNo },
+            dataType: 'json',
+            //contentType: "application/json; charset=utf-8",
+            url: "/TestRequest/PatientBill",
+            type: 'POST',
+            beforeSend: function () {
+            },
+            success: function (result) {
+                $("#PayAmount").val(result.reqTestFee);
+                $("#PatientName").val(result.patientName);
+                $("#Id").val(result.id);
+            },
+            error: function (xhr, status) {
+                window.alert(status)
+            },
+            done: function () {
+
+            }
+        })
+    }
+
+
+
+
+
+
+</script>

@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bill Management System</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/Datepicker/jqueryUI.css" rel="stylesheet" />
+    @*<link href="~/css/bootstrap.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        body {
+            background: #f2f2f2;
+        }
+
+        .navbar .nav-item:not(:last-child) {
+            margin-right: 35px;
+        }
+
+        .dropdown-toggle::after {
+            transition: transform 0.15s linear;
+        }
+
+        .show.dropdown .dropdown-toggle::after {
+            transform: translateY(3px);
+        }
+
+        .dropdown-menu {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bill Management System</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @*<li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TestTypeSetup" asp-action="TestTypeList">Test Type List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TestSetup" asp-action="TestSetup">Test Setup</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TestRequest" asp-action="TestRequest">Test Request</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TestRequest" asp-action="BillPayment">Payment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TestRequest" asp-action="UnpaidBillReport">Unpaid Bill Report</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TestRequest" asp-action="TestReport">Test Report</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TestRequest" asp-action="TestTypeReport">Test Type Report</a>
+                            </li>*@
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Setup
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="TestTypeSetup" asp-action="TestTypeList">Test Type</a>
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="TestSetup" asp-action="TestSetup">Test</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Test Request
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="TestRequest" asp-action="TestRequest">Entry</a>
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="TestRequest" asp-action="BillPayment">Payment</a>
+                                @*<div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>*@
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Report
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="TestRequest" asp-action="UnpaidBillReport">Unpaid Bill</a>
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="TestRequest" asp-action="TestReport">Test Wise</a>
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="TestRequest" asp-action="TestTypeReport">Type Wise</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - Diagnostic Center Bill Management System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/lib/Datepicker/jqueryUI.js"></script>
+    <script src="~/js/html2pdf.bundle.min.js"></script>
+    
+    <script>
+        const $dropdown = $(".dropdown");
+        const $dropdownToggle = $(".dropdown-toggle");
+        const $dropdownMenu = $(".dropdown-menu");
+        const showClass = "show";
+
+        $(window).on("load resize", function () {
+            if (this.matchMedia("(min-width: 768px)").matches) {
+                $dropdown.hover(
+                    function () {
+                        const $this = $(this);
+                        $this.addClass(showClass);
+                        $this.find($dropdownToggle).attr("aria-expanded", "true");
+                        $this.find($dropdownMenu).addClass(showClass);
+                    },
+                    function () {
+                        const $this = $(this);
+                        $this.removeClass(showClass);
+                        $this.find($dropdownToggle).attr("aria-expanded", "false");
+                        $this.find($dropdownMenu).removeClass(showClass);
+                    }
+                );
+            } else {
+                $dropdown.off("mouseenter mouseleave");
+            }
+        });
+    </script>
+</body>
+</html>
